@@ -1,12 +1,20 @@
 import os
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from config import Config
-from models import db, Account, Profile, Content, Watchlist, Rating, Genre, ContentGenre
+from models import db
+from models.models import Account, Profile, Content, Watchlist, Rating, Genre, ContentGenre
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from sqlalchemy import or_, func, text
-from auth import auth_bp 
+from routes.auth import auth_bp 
+
+#Importar blueprints
+from routes.auth import auth_bp
+from routes.catalog import catalog_bp
+from routes.content import content_bp
+
+
 
 def create_app():
     app = Flask(__name__)
@@ -21,8 +29,10 @@ def create_app():
     def load_user(user_id):
         return Account.query.get(int(user_id))
 
-    # registrar blueprint de auth
+    # registrar blueprints
     app.register_blueprint(auth_bp)
+    app.register_blueprint(catalog_bp)
+    app.register_blueprint(content_bp)
 
     @app.route('/')
     def index():
