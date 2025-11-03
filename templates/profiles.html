@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Tus perfiles</h2>
+<ul class="list-group">
+  {% for p in profiles %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    {{ p.name }} {% if p.is_kids %}<span class="badge bg-info">Kids</span>{% endif %}
+    <a class="btn btn-sm btn-primary" href="{{ url_for('watchlist', profile_id=p.id) }}">Ver Mi lista</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

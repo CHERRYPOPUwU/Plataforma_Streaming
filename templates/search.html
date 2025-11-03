@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Búsqueda</h2>
+<form class="mb-3" method="get" action="{{ url_for('search') }}">
+  <div class="input-group">
+    <input name="q" value="{{ q }}" class="form-control" placeholder="Buscar título o sinopsis...">
+    <button class="btn btn-outline-secondary">Buscar</button>
+  </div>
+</form>
+
+<div class="row">
+  {% for c in contents %}
+  <div class="col-md-4 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ c.title }}</h5>
+        <p class="card-text">{{ c.year }} · {{ c.type }}</p>
+        <a class="btn btn-sm btn-primary" href="{{ url_for('content_detail', content_id=c.id) }}">Ver</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+    <p>No se encontraron resultados.</p>
+  {% endfor %}
+</div>
+{% endblock %}

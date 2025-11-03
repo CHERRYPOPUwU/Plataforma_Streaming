@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ content.title }} {% if content.original_title %} ({{content.original_title}}){% endif %}</h2>
+<p><strong>Año:</strong> {{ content.year }} · <strong>Tipo:</strong> {{ content.type }}</p>
+<p>{{ content.synopsis }}</p>
+<hr>
+<h5>Valoración: {{ content.rating_avg }} ({{ content.rating_count }})</h5>
+
+{% if current_user.is_authenticated %}
+  <a class="btn btn-success" href="{{ url_for('profiles') }}">Ver perfiles</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<h1>Últimos contenidos</h1>
+<div class="row">
+  {% for c in contents %}
+  <div class="col-md-3">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ c.title }}</h5>
+        <p class="card-text">{{ c.year }} · {{ c.type }}</p>
+        <a href="{{ url_for('content_detail', content_id=c.id) }}" class="btn btn-sm btn-primary">Ver</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

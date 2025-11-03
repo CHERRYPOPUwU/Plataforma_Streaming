@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Mi lista - {{ profile.name }}</h2>
+<ul class="list-group">
+  {% for item in items %}
+  <li class="list-group-item">
+    <a href="{{ url_for('content_detail', content_id=item.content_id) }}">{{ item.content.title }}</a>
+    <small class="text-muted">añadido {{ item.added_at }}</small>
+  </li>
+  {% else %}
+    <li class="list-group-item">No hay elementos</li>
+  {% endfor %}
+</ul>
+{% endblock %}
