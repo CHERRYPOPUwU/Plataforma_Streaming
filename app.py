@@ -154,6 +154,3 @@ def create_app():
         return {}, 404
 
     return app
-
-if __name__ == '__main__':
-    app = create_app()
