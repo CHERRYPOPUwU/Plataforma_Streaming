@@ -21,6 +21,9 @@ def create_app():
     app.config.from_object(Config)
     db.init_app(app)
 
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port) 
+
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
@@ -153,8 +156,6 @@ def create_app():
             return res[0]  # devuelve JSON desde la función PG
         return {}, 404
 
-    port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port) 
     return app
 
 if __name__ == '__main__':
