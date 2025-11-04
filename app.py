@@ -153,6 +153,8 @@ def create_app():
             return res[0]  # devuelve JSON desde la función PG
         return {}, 404
 
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port) 
     return app
 
 if __name__ == '__main__':
