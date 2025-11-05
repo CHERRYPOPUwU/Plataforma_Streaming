@@ -38,7 +38,7 @@ def create_app():
     def index():
         # mostrar últimos contenidos
         contents = Content.query.order_by(Content.created_at.desc()).limit(12).all()
-        return render_template('index.html', contents=contents)
+        return render_template('catalog.html', contents=contents)
 
     # ---------- AUTH ----------
     @app.route('/register', methods=['GET','POST'])

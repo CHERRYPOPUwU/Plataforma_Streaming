@@ -10,14 +10,17 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <div class="container">
         <a class="navbar-brand" href="{{ url_for('index') }}">MiStreaming</a>
-        <div class="collapse navbar-collapse">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             {% if current_user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="{{ url_for('profiles') }}">Perfiles</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Salir</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Salir</a></li>
             {% else %}
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Iniciar</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Registro</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Iniciar</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Registro</a></li>
             {% endif %}
           </ul>
         </div>

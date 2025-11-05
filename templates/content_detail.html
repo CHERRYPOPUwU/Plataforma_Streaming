@@ -1,12 +1,28 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>{{ content.title }} {% if content.original_title %} ({{content.original_title}}){% endif %}</h2>
-<p><strong>Año:</strong> {{ content.year }} · <strong>Tipo:</strong> {{ content.type }}</p>
-<p>{{ content.synopsis }}</p>
-<hr>
-<h5>Valoración: {{ content.rating_avg }} ({{ content.rating_count }})</h5>
+{% extends 'base.html' %}
+{% block title %}{{ content.title }}{% endblock %}
 
-{% if current_user.is_authenticated %}
-  <a class="btn btn-success" href="{{ url_for('profiles') }}">Ver perfiles</a>
-{% endif %}
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4">
+      {% if content.poster_url %}
+      <img src="{{ content.poster_url }}" class="img-fluid rounded shadow" alt="{{ content.title }}">
+      {% else %}
+      <img src="{{ url_for('static', filename='img/no_image.png') }}" class="img-fluid rounded shadow" alt="Sin imagen">
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <h2>{{ content.title }}</h2>
+      {% if content.original_title %}
+      <p class="text-muted"><em>Título original: {{ content.original_title }}</em></p>
+      {% endif %}
+      <p><strong>Año:</strong> {{ content.year }}</p>
+      <p><strong>Duración:</strong> {{ content.runtime_minutes }} min</p>
+      <p><strong>Idioma:</strong> {{ content.language_primary }}</p>
+      <p><strong>Clasificación:</strong> {{ content.maturity_rating }}</p>
+      <p>{{ content.synopsis }}</p>
+      <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver al catálogo</a>
+    </div>
+  </div>
+</div>
 {% endblock %}

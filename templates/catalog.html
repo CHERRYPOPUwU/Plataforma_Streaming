@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Catálogo{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="text-center mb-4">🎬 Catálogo</h2>
+
+  <!-- 🔍 Barra de búsqueda y filtros -->
+  <form method="get" action="{{ url_for('catalog.catalog_page') }}" class="row mb-4">
+    <div class="col-md-4">
+      <input type="text" name="q" class="form-control" placeholder="Buscar..." value="{{ request.args.get('q', '') }}">
+    </div>
+    <div class="col-md-3">
+      <select name="genre" class="form-select">
+        <option value="">Todos los géneros</option>
+        <option value="Acción" {% if genre == 'Acción' %}selected{% endif %}>Acción</option>
+        <option value="Comedia" {% if genre == 'Comedia' %}selected{% endif %}>Comedia</option>
+        <option value="Drama" {% if genre == 'Drama' %}selected{% endif %}>Drama</option>
+        <option value="Terror" {% if genre == 'Terror' %}selected{% endif %}>Terror</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select name="type" class="form-select">
+        <option value="">Todos los tipos</option>
+        <option value="pelicula" {% if content_type == 'pelicula' %}selected{% endif %}>Película</option>
+        <option value="serie" {% if content_type == 'serie' %}selected{% endif %}>Serie</option>
+        <option value="documental" {% if content_type == 'documental' %}selected{% endif %}>Documental</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+    </div>
+  </form>
+
+  <!-- 🎥 Catálogo -->
+  <div class="row">
+    {% if contents %}
+      {% for item in contents %}
+        <div class="col-md-3 mb-4">
+          <div class="card h-100 shadow-sm">
+            <img src="{{ item['image_url'] }}" class="card-img-top" alt="{{ item['title'] }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ item['title'] }}</h5>
+              <p class="card-text"><small>{{ item['genre'] }} • {{ item['type'] }}</small></p>
+              <a href="{{ url_for('content.get_content_details', content_id=item['id']) }}" class="btn btn-outline-primary btn-sm">Ver más</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-center">No se encontraron resultados.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
